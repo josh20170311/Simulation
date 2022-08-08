@@ -7,7 +7,7 @@ namespace Simulation {
             InitializeComponent();
 
             /**
-             * ±Nauthnticator¸òBob¸j¦b¤@°_
+             * å°‡authnticatorè·ŸBobç¶åœ¨ä¸€èµ·
              */
             identityProvider.initialize(authenticator, "Bob");
 

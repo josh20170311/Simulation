@@ -71,9 +71,11 @@ namespace Simulation {
             Debug.WriteLine(hmac);
             foreach(Identity i in _identityList) {
                 if (i.HMAC == hmac) {
-                    if (i.Cx == decryptCounter(i.Rx, i.Rp, encryptedCounter))
+                    int decryptedCounter = decryptCounter(i.Rx, i.Rp, encryptedCounter);
+                    Debug.WriteLine("decryptedCounter= "+decryptedCounter);
+                    if (i.Cx == decryptedCounter) {
                         return i.IDx;
-                    else {
+                    } else {
                         Debug.WriteLine("Cx not match");
                         return null;
                     }

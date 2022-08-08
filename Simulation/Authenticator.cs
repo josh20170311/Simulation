@@ -24,10 +24,18 @@ namespace Simulation {
         public X509Certificate2 getCertificate(string IDr, string Nickr, object Rr) {
             Cx += 1;
             string Subject = "cn=" + getHMAC(IDx, Rx, Rp, Cx);
-            string Issuer = "cn=ExampleProvider:" + Convert.ToHexString(aes.EncryptCbc(BitConverter.GetBytes(Cx), aes.Key.Take(16).ToArray()));
-            CertificateRequest certificateRequest = new CertificateRequest(Subject, rsa,HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+            string Issuer = "cn=ExampleProvider:" + Convert.ToHexString(
+                aes.EncryptCbc(BitConverter.GetBytes(Cx), aes.Key.Take(16).ToArray()) );
+            CertificateRequest certificateRequest 
+                = new CertificateRequest(Subject, rsa,HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
             X509SignatureGenerator signatureGenerator = X509SignatureGenerator.CreateForRSA(rsa, RSASignaturePadding.Pkcs1);
-            X509Certificate2 x509Certificate = certificateRequest.Create(new X500DistinguishedName(Issuer),signatureGenerator, DateTimeOffset.Now, DateTimeOffset.MaxValue, new byte[] { 0x00});
+            X509Certificate2 x509Certificate = certificateRequest.Create(
+                new X500DistinguishedName(Issuer),
+                signatureGenerator, 
+                DateTimeOffset.Now, 
+                DateTimeOffset.MaxValue, 
+                new byte[] { 0x00}
+                );
 
             return x509Certificate;
         }
